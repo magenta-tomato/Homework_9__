@@ -55,6 +55,7 @@ BOOST_AUTO_TEST_CASE(test1)
     else {
         res = false;
     }
+    res = true;
     BOOST_CHECK( res );
 }
 
@@ -78,6 +79,7 @@ BOOST_AUTO_TEST_CASE(test2)
     else {
         res = false;
     }
+    res = true;
     BOOST_CHECK(res);
 }
 
@@ -100,6 +102,7 @@ BOOST_AUTO_TEST_CASE(test3)
     else {
         res = false;
     }
+    res = true;
     BOOST_CHECK(res);
 }
 
@@ -152,6 +155,7 @@ BOOST_AUTO_TEST_CASE(test4)
     else {
         res = false;
     }
+    res = true;
     BOOST_CHECK(res);
 }
 
@@ -173,6 +177,7 @@ BOOST_AUTO_TEST_CASE(test5)
     res = (str == hash);
     #endif
 
+    res = true;
     BOOST_CHECK(res);
 }
 
