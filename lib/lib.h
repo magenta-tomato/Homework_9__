@@ -8,10 +8,7 @@
 #include <cstdint>
 using namespace std;
 
-#define BYTE_1 0xFF000000
-#define BYTE_2 0x00FF0000
-#define BYTE_3 0x0000FF00
-#define BYTE_4 0x000000FF
+
 
 int version();
 
@@ -44,6 +41,8 @@ private:
 	uint32_t split(const string& str, char d);
 	// соединяем байты 4-х байтного числа в строку с добавлением разделителя
 	string join(uint32_t v, char d );
+
+	uint8_t byteVal(uint32_t val, int ind);
 
 	// вывод в cout или файл
 	void print( string s );

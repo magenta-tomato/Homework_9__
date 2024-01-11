@@ -67,13 +67,13 @@ string IpFilter::join( uint32_t v, char d )
 {
     string res; 
 
-    res += to_string( (v & BYTE_1) >> 24 );
+    res += to_string( byteVal(v,1) );
     res += d;
-    res += to_string( (v & BYTE_2) >> 16 );
+    res += to_string( byteVal(v,2) );
     res += d;
-    res += to_string( (v & BYTE_3) >> 8 );
+    res += to_string( byteVal(v,3) );
     res += d;
-    res += to_string( v & BYTE_4 );
+    res += to_string( byteVal(v,4) );
 
     return res;
 }
@@ -83,7 +83,7 @@ void IpFilter::filter(uint8_t n)
 {
     _resVec.clear();
     for( auto i : _vec ){
-        if( (i & BYTE_1) == n) {
+        if( byteVal(i,1) == n) {
             print( join(i, '.') );
         }
     }
@@ -94,7 +94,7 @@ void IpFilter::filter(int n, int m)
 {
     _resVec.clear();
     for (auto i : _vec) {
-        if( (i & BYTE_1) == n && (i & BYTE_2) == m) {
+        if( byteVal(i,1) == n && byteVal(i,2) == m) {
             print( join(i, '.') );
         }
     }
@@ -105,12 +105,11 @@ void IpFilter::filter_any(int n)
 {
     _resVec.clear();
     for (auto i : _vec) {
-        if( (i & BYTE_1) == n ||
-            (i & BYTE_2) == n ||
-            (i & BYTE_3) == n ||
-            (i & BYTE_4) == n ){
-            print(join(i, '.'));
-            break;
+        if( byteVal(i,1) == n ||
+            byteVal(i,2) == n ||
+            byteVal(i,3) == n ||
+            byteVal(i,4) == n ){
+                print(join(i, '.'));
         }
     }
 }
@@ -127,4 +126,21 @@ void IpFilter::print(string s)
     if (_outVec) {
         _resVec.push_back(s);
     }
+}
+
+uint8_t IpFilter::byteVal(uint32_t val, int ind)
+{
+    if (ind == 1) {
+        return (val & 0xFF000000) >> 24;
+    }
+    if (ind == 2) {
+        return (val & 0x00FF0000) >> 16;
+    }
+    if (ind == 3) {
+        return (val & 0x0000FF00) >> 8;
+    }
+    if (ind == 4) {
+        return (val & 0x000000FF);
+    }
+    return 0;
 }
