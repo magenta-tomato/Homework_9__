@@ -5,10 +5,15 @@
 #include <vector>
 #include <fstream>
 #include <algorithm>
+#include <cstdint>
 using namespace std;
 
-int version();
+#define BYTE_1 0xFF000000
+#define BYTE_2 0x00FF0000
+#define BYTE_3 0x0000FF00
+#define BYTE_4 0x000000FF
 
+int version();
 
 class IpFilter
 {
@@ -22,7 +27,7 @@ public:
 	void sorting();
 
 	// фильтр по первому байту 
-	void filter(int n);
+	void filter(uint8_t n);
 
 	// фильтр по первому и второму байтам
 	void filter(int n, int m);
@@ -33,11 +38,12 @@ public:
 	vector<string> _resVec;
 private:
 
-	vector<vector<int>> _vec;
+	vector<uint32_t> _vec;
 
-	// разделить/соединить строку на массив чисел через разделитель
-	vector<int> split(const string& str, char d);
-	string join(vector<int>& vec, char d, bool useDelimiter = true);
+	// соединяем части строки с разделителем в 4-х байтное число
+	uint32_t split(const string& str, char d);
+	// соединяем байты 4-х байтного числа в строку с добавлением разделителя
+	string join(uint32_t v, char d );
 
 	// вывод в cout или файл
 	void print( string s );

@@ -2,13 +2,16 @@
 
 #include <iostream>
 
-int main(int, char**) {
-
-    IpFilter filt;
+int main(int, char**) 
+{
+   IpFilter filt;
 
     string line;
     vector<string> vec;
     while (getline(cin, line)) {
+        if (line.empty()) {
+            break;
+        }
         filt.add(line);
     }
 

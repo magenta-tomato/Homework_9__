@@ -8,6 +8,7 @@ project( ip_filter VERSION ${PROJECT_VERSION})
 enable_testing()
 
 add_subdirectory(lib)
-add_subdirectory(src)
+add_subdirectory(app)
+add_subdirectory(tests)
 
 

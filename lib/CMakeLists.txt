@@ -1,16 +1,24 @@
 cmake_minimum_required(VERSION 3.10)
 
-project( library VERSION ${PROJECT_VERSION})
+# библиотека
+
+# проект
+project( 
+	library 
+	VERSION 
+	${PROJECT_VERSION}
+)
 
 # преобразование h.in в h файл
 configure_file(
     version.h.in 
     ${CMAKE_CURRENT_BINARY_DIR}/version.h
 )
-# библиотека собирается из следующих файлов
+
+# библиотека и исходники
 add_library( lib STATIC lib.cpp lib.h )
 
-# директория содержащая version.h
+# исходники используют файл version.h
 target_include_directories(
     lib 
     PRIVATE
@@ -23,4 +31,3 @@ set_target_properties(
     CXX_STANDARD 14
     CXX_STANDARD_REQUIRED ON
 )
-
