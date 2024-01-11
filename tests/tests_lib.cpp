@@ -55,7 +55,6 @@ BOOST_AUTO_TEST_CASE(test1)
     else {
         res = false;
     }
-    res = true;
     BOOST_CHECK( res );
 }
 
