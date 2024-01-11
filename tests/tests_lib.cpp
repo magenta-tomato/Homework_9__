@@ -173,7 +173,6 @@ BOOST_AUTO_TEST_CASE(test5)
     res = (str == hash);
     #endif
 
-    res = true;
     BOOST_CHECK(res);
 }
 
