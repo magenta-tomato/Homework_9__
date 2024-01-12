@@ -42,14 +42,6 @@ set_target_properties(
     CXX_STANDARD_REQUIRED ON
 )
 
-# тестовый файл
-add_custom_command(
-    TARGET ip_filter POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy
-	${CMAKE_CURRENT_SOURCE_DIR}/ip_filter.tsv
-    ${CMAKE_CURRENT_BINARY_DIR}/ip_filter.tsv
-)
-
 #
 install(TARGETS ip_filter RUNTIME DESTINATION bin)
  

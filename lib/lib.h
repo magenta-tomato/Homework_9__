@@ -24,7 +24,7 @@ public:
 	void sorting();
 
 	// фильтр по первому байту 
-	void filter(uint8_t n);
+	void filter(uint8_t n); 
 
 	// фильтр по первому и второму байтам
 	void filter(int n, int m);
@@ -34,7 +34,7 @@ public:
 
 	vector<string> _resVec;
 private:
-
+	 
 	vector<uint32_t> _vec;
 
 	// соединяем части строки с разделителем в 4-х байтное число

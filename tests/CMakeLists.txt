@@ -65,6 +65,14 @@ set_target_properties(
     CXX_STANDARD_REQUIRED ON
 )
 
+# тестовый файл
+add_custom_command(
+    TARGET tests_lib POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy
+	${CMAKE_CURRENT_SOURCE_DIR}/ip_filter.tsv
+    ${CMAKE_CURRENT_BINARY_DIR}/ip_filter.tsv
+)
+
 add_test( 
 	tests_lib 
 	tests_lib

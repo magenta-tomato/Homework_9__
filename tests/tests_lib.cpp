@@ -177,7 +177,7 @@ BOOST_AUTO_TEST_CASE(test5)
     string hash = "24e7a7b2270daee89c64d3ca5fb3da1a";
     const int sz = hash.size() + 1;
     char buf[sz];
-    string cmd = "cat ip_filter.tsv | ./ip_filter | md5sum";
+    string cmd = "cat ip_filter.tsv | ../app/ip_filter | md5sum";
     FILE* pipe = popen(cmd.c_str(), "r");
     if (pipe) {
         fgets(buf, sz, pipe);
