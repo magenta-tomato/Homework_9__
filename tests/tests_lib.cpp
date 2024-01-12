@@ -1,19 +1,16 @@
-#define BOOST_TEST_MODULE test_version
+#define BOOST_TEST_MODULE tests_lib
 
 #include "lib.h"
 
 #include <boost/test/unit_test.hpp>
+#include <boost/test/unit_test_parameters.hpp>
+using namespace boost::unit_test;
 
-BOOST_AUTO_TEST_SUITE(test_version)
 
-BOOST_AUTO_TEST_CASE(test_valid_version)
-{
-    BOOST_CHECK(version() > 0);
-}
+BOOST_AUTO_TEST_SUITE(tests_lib)
 
 IpFilter initFilter(bool& isSuc)
 {
-    //string outFileName = "output.tsv";
     IpFilter filt( false, "", true);
 
     string line;
@@ -38,7 +35,10 @@ IpFilter initFilter(bool& isSuc)
 // сортировка в обратном лексикографическом порядке
 BOOST_AUTO_TEST_CASE(test1)
 {
-    bool isSuc, res;
+    unit_test_log.set_threshold_level(log_messages);
+    BOOST_TEST_MESSAGE("test1");
+    
+	bool isSuc, res;
     IpFilter filt = initFilter( isSuc );
     if (isSuc) {
         filt.sorting();
@@ -55,12 +55,17 @@ BOOST_AUTO_TEST_CASE(test1)
     else {
         res = false;
     }
+	
     BOOST_CHECK( res );
 }
+
 
 // фильтр по первому байту 
 BOOST_AUTO_TEST_CASE(test2)
 {
+    unit_test_log.set_threshold_level(log_messages);
+	BOOST_TEST_MESSAGE("test2");
+	
     bool isSuc, res;
     IpFilter filt = initFilter(isSuc);
     if (isSuc) {
@@ -84,6 +89,9 @@ BOOST_AUTO_TEST_CASE(test2)
 // фильтр по первому и второму байтам
 BOOST_AUTO_TEST_CASE(test3)
 {
+    unit_test_log.set_threshold_level(log_messages);
+	BOOST_TEST_MESSAGE("test3");
+	
     bool isSuc, res;
     IpFilter filt = initFilter(isSuc);
     if (isSuc) {
@@ -106,6 +114,9 @@ BOOST_AUTO_TEST_CASE(test3)
 // фильтр - один из байт равен значению
 BOOST_AUTO_TEST_CASE(test4)
 {
+    unit_test_log.set_threshold_level(log_messages);
+	BOOST_TEST_MESSAGE("test4");
+	
     bool isSuc, res;
     IpFilter filt = initFilter(isSuc);
     if (isSuc) {
@@ -158,6 +169,9 @@ BOOST_AUTO_TEST_CASE(test4)
 // общий тест на хэш
 BOOST_AUTO_TEST_CASE(test5)
 {
+    unit_test_log.set_threshold_level(log_messages);
+	BOOST_TEST_MESSAGE("test5");
+	
     bool res = true;
     #ifndef _WIN32
     string hash = "24e7a7b2270daee89c64d3ca5fb3da1a";
@@ -175,5 +189,6 @@ BOOST_AUTO_TEST_CASE(test5)
 
     BOOST_CHECK(res);
 }
+
 
 BOOST_AUTO_TEST_SUITE_END()
