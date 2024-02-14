@@ -4,46 +4,46 @@ cmake_minimum_required(VERSION 3.10)
 
 # проект
 project( 
-	ip_filter 
+	mvc 
 	VERSION 
 	${PROJECT_VERSION}
 )
 
 # исполняемый файлы и исходники
 add_executable( 
-	ip_filter 
+	mvc
 	main.cpp 
 )
 
 # исполняемый файл использует библиотеку lib
 target_link_libraries( 
-	ip_filter 
+	mvc 
 	lib 
 )
 
 # исходники используют заголовок библиотеки lib
 target_include_directories(
-    ip_filter 
+    mvc 
     PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/../lib
 )
 
 # директория бинарника библиотеки
 target_include_directories(
-	ip_filter
+	mvc
 	PRIVATE
 	${CMAKE_CURRENT_BINARY_DIR}
 )
 
 # поддержка станадарта языка
 set_target_properties(
-    ip_filter PROPERTIES
+    mvc PROPERTIES
     CXX_STANDARD 14
     CXX_STANDARD_REQUIRED ON
 )
 
 #
-install(TARGETS ip_filter RUNTIME DESTINATION bin)
+install(TARGETS mvc RUNTIME DESTINATION bin)
  
 #
 set(CPACK_GENERATOR DEB)

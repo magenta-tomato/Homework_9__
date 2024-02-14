@@ -1,24 +1,21 @@
-﻿#include "lib.h"
+#include "Model.h"
+#include "View.h"
+#include "Controller.h"
 
-#include <iostream>
-
-int main(int, char**) 
+int main()
 {
-    IpFilter filt;
-     
-    string line;
-    vector<string> vec;
-    while (getline(cin, line)) {
-        if (line.empty()) {
-            break;
-        }
-        filt.add(line);
-    }
+    Model m;
+    View v;
+    Controller c;
+	
+    v.setController(&c);
+    c.setModel(&m);
+    m.setView(&v);
 
-    filt.sorting();
-    filt.filter(1);
-    filt.filter(46, 70);
-    filt.filter_any(46);
-   
-    return 0;
+    // действия пользователя
+    v.createDocClicked(); 
+    v.importDocClicked(); 
+    v.exportDocClicked();
+    v.createGraphicClicked(); 
+    v.removeGraphicClicked();
 }

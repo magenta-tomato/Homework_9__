@@ -16,7 +16,7 @@ configure_file(
 )
 
 # библиотека и исходники
-add_library( lib STATIC lib.cpp lib.h )
+add_library( lib STATIC Model.cpp Model.h Controller.cpp Controller.h View.cpp View.h Shape.cpp Shape.h )
 
 # исходники используют файл version.h
 target_include_directories(
