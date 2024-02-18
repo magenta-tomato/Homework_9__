@@ -4,46 +4,46 @@ cmake_minimum_required(VERSION 3.10)
 
 # проект
 project( 
-	mvc 
+	matrix 
 	VERSION 
 	${PROJECT_VERSION}
 )
 
 # исполняемый файлы и исходники
 add_executable( 
-	mvc
+	matrix 
 	main.cpp 
 )
 
 # исполняемый файл использует библиотеку lib
 target_link_libraries( 
-	mvc 
+	matrix 
 	lib 
 )
 
 # исходники используют заголовок библиотеки lib
 target_include_directories(
-    mvc 
+    matrix 
     PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/../lib
 )
 
 # директория бинарника библиотеки
 target_include_directories(
-	mvc
+	matrix
 	PRIVATE
 	${CMAKE_CURRENT_BINARY_DIR}
 )
 
 # поддержка станадарта языка
 set_target_properties(
-    mvc PROPERTIES
+    matrix PROPERTIES
     CXX_STANDARD 14
     CXX_STANDARD_REQUIRED ON
 )
 
 #
-install(TARGETS mvc RUNTIME DESTINATION bin)
+install(TARGETS matrix RUNTIME DESTINATION bin)
  
 #
 set(CPACK_GENERATOR DEB)
