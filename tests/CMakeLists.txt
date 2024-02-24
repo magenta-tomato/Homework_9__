@@ -23,7 +23,7 @@ target_link_libraries(
 
 # исходники используют заголовок библиотеки lib
 target_include_directories(
-    tests_lib
+		tests_lib
     PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/../lib
 )
