@@ -1,55 +1,36 @@
 ﻿#include "Bulk.h"
 
-#include "version.h"
-
-int version() {
-    return PROJECT_VERSION_PATCH;
-}
-
-// время
-string Bulk::getTime() {
-    using namespace std::chrono;
-    auto cur_time = system_clock::now();
-    auto cur_epoch = duration_cast<seconds>(cur_time.time_since_epoch());
-    return to_string(cur_epoch.count());
-}
-
 
 // цикл обработки команд
-void Bulk::processLoop()
+void Bulk::get( string cmd, vector<string>& res )
 {
-    string cmd;
-    State state = State::Unset;
-    fileName.clear();
+    // определяем очередной тип блока
+    if (state == State::Unset) {
 
-    while( cin >> cmd ) {
-
-        // определяем очередной тип блока
-        if (state == State::Unset) {
-
-            if (cmd != "{") {
-                state = staticBlock(cmd);
-            }
-            else{
-                d_counter = 1;
-                state = dynamicBlock(cmd);
-            }
-        }
-        // продолжаем обрабатывать динамический блок
-        else if (state == State::Dynamic) {
-            state = dynamicBlock(cmd);
-        }
-        // продолжаем обрабатывать статический блок
-        else if (state == State::Static) {
+        if (cmd != "{") {
             state = staticBlock(cmd);
         }
+        else{
+            d_counter = 1;
+            state = dynamicBlock(cmd);
+        }
     }
+    // продолжаем обрабатывать динамический блок
+    else if (state == State::Dynamic) {
+        state = dynamicBlock(cmd);
+    }
+    // продолжаем обрабатывать статический блок
+    else if (state == State::Static) {
+        state = staticBlock(cmd);
+    }
+}
 
+void Bulk::end()
+{
     // для статистического блока при конце ввода завершаем принудительно
     if (state == State::Static) {
-        writeFile();
+        //writeFile();
     }
-
 }
 
 // очередной символ обрабатывается в рамках статического блока
@@ -57,7 +38,7 @@ State Bulk::staticBlock( string cmd )
 {
     // завершаем принудительно по нахождению { - следующий блок : динамический 
     if (cmd == "{") {
-        writeFile();
+        //writeFile();
         d_counter = 1;
         return State::Dynamic;
     }
@@ -70,11 +51,11 @@ State Bulk::staticBlock( string cmd )
     commands.push_back(cmd);
     // первая команда
     if (commands.size()  == 1) {
-        setFileName();
+        //setFileName();
     }
     // завершаем планово по нахождению всех N команд - какой будет следующий блок : неизвестно
     else if( commands.size() == sz) {
-        writeFile();
+       // writeFile();
         return State::Unset;
     }
     return State::Static;
@@ -94,7 +75,7 @@ State Bulk::dynamicBlock( string cmd )
         d_counter--;
         // завершеаем планово по нахождению нужного количества }
         if (d_counter == 0) {
-            writeFile();
+            //writeFile();
             return State::Unset;
         }
         // продолжаем
@@ -107,42 +88,8 @@ State Bulk::dynamicBlock( string cmd )
     commands.push_back(cmd);
     // первая команда
     if (commands.size() == 1) {
-        setFileName();
+        //setFileName();
     }
     // продолжаем
     return State::Dynamic;
-}
-
-// имя файла
-void Bulk::setFileName()
-{
-    if (fileName.empty()) {
-        fileName = "bulk" + getTime() + ".log";
-    }
-}
-
-// создание и запись в файл
-void Bulk::writeFile()
-{
-    if (!commands.size()) return;
-
-    string res;
-    for (int i = 0; i < commands.size(); i++ ) {
-        res += commands[i];
-        if (i < commands.size() - 1)
-            res += ", ";
-    }
-
-    // запись в консоль
-    cout << "bulk: " << res << endl;
-
-    // запись в файл
-    ofstream file = ofstream(fileName, ios::app );
-    if (!file.is_open()) {
-        throw std::runtime_error("Error open file\n");
-    }
-    file << res << endl;
-    file.close();
-
-    commands.clear();
 }

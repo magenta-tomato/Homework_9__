@@ -3,13 +3,9 @@
 #include <iostream>
 #include <cctype>
 #include <string>
-#include <chrono>
-#include <fstream>
 #include <vector>
 #include <sstream>
 using namespace std;
-
-int version();
 
 enum class State {
     Unset,
@@ -21,23 +17,16 @@ class Bulk
 {
 public:
 
-    Bulk(int _sz) : sz(_sz)  {}
-    void processLoop();
-    vector<string> testRes;
+    Bulk(int _sz=0) : sz(_sz)  {}
 
+    void get( string cmd, vector<string>& res );
+    void end();
     State staticBlock(string cmd);
     State dynamicBlock(string cmd);
 
 private:
-    void setFileName();
-    void writeFile();
-    string getTime();
-
+    State state = State::Unset;
     vector<string> commands;
-    fstream file;
     int sz;
-
-    int d_counter;
-    string fileName;
-
+    int d_counter = 0;
 };
