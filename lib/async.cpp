@@ -3,6 +3,9 @@
 
 namespace async
 {
+    extern WriteThreads tObj;
+    extern unordered_set<void*> contextArray;
+
     handle_t connect(std::size_t bulk)
     {
         Context* cont = new Context();
